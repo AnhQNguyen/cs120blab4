@@ -37,11 +37,14 @@ void incrementC() {
         }
         break;
         case IN_Wait:
-            if(tempA0 && tempA0) {
-                IN_State = IN_Reset;    
+            if(tempA0 && !tempA0) {
+                IN_State = IN_Plus;    
             }
-            else if(!tempA0 && !tempA1) {
-                 IN_State = IN_Init; //no chance of reset
+            else if(!tempA0 && tempA1) {
+                 IN_State = IN_Minus; 
+            }
+            else if(tempA0 && tempA1) {
+                IN_State = IN_Reset;
             }
             else {
                 IN_State = IN_Wait;
