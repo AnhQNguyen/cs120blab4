@@ -57,13 +57,23 @@ tempA7 = PINA & 0x80;
         CL_State = CL_Lock;
       }
       else if(tempA1) {
-        CL_State = CL_Open;
+        CL_State = CL_C3;
       }
       else {
           CL_State = CL_Wait;
       }
 
       break;
+    case CL_C3:
+      if(tempA7) {
+        CL_State = CL_Lock;
+      }
+      else if(!tempA1) {
+        CL_State = CL_Open;
+      }
+      else {
+        CL_State = CL_Wait;
+      }
 
     case CL_Open:
       if(tempA7) {
@@ -93,6 +103,8 @@ tempA7 = PINA & 0x80;
       case CL_C1:
         break;
       case CL_C2:
+        break;
+      case CL_C3:
         break;
       case CL_Open:
         PORTB = 0x01;
