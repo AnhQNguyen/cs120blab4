@@ -19,6 +19,7 @@ unsigned char tempC = 0x00;
 void incrementC() {
     switch(IN_State) {
       case IN_SMStart:
+        IN_State = IN_Wait;
         break;
       case IN_Wait:
         if(PINA == 0x01){
