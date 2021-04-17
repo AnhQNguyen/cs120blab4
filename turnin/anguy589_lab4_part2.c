@@ -35,13 +35,13 @@ void incrementC() {
         }
         break;
       case IN_Plus:
-        IN_State = IN_Plus;
+        IN_State = IN_Wait;
         break;
       case IN_Minus:
-        IN_State = IN_Minus;
+        IN_State = IN_Wait;
         break;
       case IN_Reset:
-        IN_State = IN_Reset;
+        IN_State = IN_Wait;
         break;
         default:
           break;
