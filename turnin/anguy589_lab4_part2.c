@@ -37,17 +37,12 @@ void incrementC() {
         }
         break;
         case IN_Wait:
-            if(tempA0 && !tempA0) {
-                IN_State = IN_Plus;    
-            }
-            else if(!tempA0 && tempA1) {
-                 IN_State = IN_Minus; 
-            }
-            else if(tempA0 && tempA1) {
+            if(tempA0 && tempA1) {
                 IN_State = IN_Reset;
             }
+            
             else {
-                IN_State = IN_Wait;
+                IN_State = IN_Init;
             }
             break;
                     
@@ -71,7 +66,6 @@ void incrementC() {
         PORTC = 0x07;
         break;
      case IN_Init:
-        PORTC = 0x07;
          break;
       case IN_Wait:
         break;
