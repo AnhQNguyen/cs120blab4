@@ -77,12 +77,10 @@ int main(void) {
   DDRA = 0x00; PORTA = 0xFF;
   DDRC = 0xFF; PORTC = 0x00;
 
-  
 
-  IN_State = IN_SMStart;
-  tempC = 7;
     
   while(1) {
+    tempC = 7;
     incrementC();
     PORTC =  tempC;
   }
