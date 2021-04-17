@@ -68,7 +68,6 @@ void incrementC() {
         PORTC = 0x07;
         break;
      case IN_Init:
-        PORTC = 0x07;
          break;
       case IN_Wait:
         break;
