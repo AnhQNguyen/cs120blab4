@@ -11,7 +11,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum CL_States { CL_SMStart, CL_Wait, CL_C1, CL_C2, CL_Open, CL_Lock} CL_State;
+enum CL_States { CL_SMStart, CL_Wait, CL_C1, CL_C2, Cl_C3, CL_Open, CL_Lock} CL_State;
 unsigned char tempA0 = 0x00;
 unsigned char tempA1 = 0x00;
 unsigned char tempA2 = 0x00;
@@ -74,6 +74,7 @@ tempA7 = PINA & 0x80;
       else {
         CL_State = CL_Wait;
       }
+      break;
 
     case CL_Open:
       if(tempA7) {
