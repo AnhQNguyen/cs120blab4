@@ -80,9 +80,9 @@ int main(void) {
   
 
   IN_State = IN_SMStart;
-
+  tempC = 7;
+    
   while(1) {
-    tempC = 7;
     incrementC();
     PORTC =  tempC;
   }
