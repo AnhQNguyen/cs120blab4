@@ -12,7 +12,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum IN_States {IN_SMStart, IN_Init, IN_WaitIN_Plus, IN_Minus, IN_Reset} IN_State;
+enum IN_States {IN_SMStart, IN_Init, IN_Wait, IN_Plus, IN_Minus, IN_Reset} IN_State;
 
 void incrementC() {
     unsigned char tempA0 = PINA & 0x01;
@@ -37,10 +37,10 @@ void incrementC() {
         }
         break;
         case IN_Wait:
-            if(tempA0 && tempA0) [
+            if(tempA0 && tempA0) {
                 IN_State = IN_Reset;    
             }
-            else if(!tempA0 && !tempA) {
+            else if(!tempA0 && !tempA1) {
                  IN_State = IN_Init; //no chance of reset
             }
             else {
