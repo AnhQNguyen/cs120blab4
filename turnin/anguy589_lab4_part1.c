@@ -57,10 +57,10 @@ void switchLights() {
         PORTB = 0x01;
         break;
       case SL_S1:
-        PORTB = 0x02;
+        PORTB = 0x01;
         break;
       case SL_S2:
-        PORTB = 0x01;
+        PORTB = 0x02;
         break;
       default:
         break;
