@@ -12,29 +12,42 @@
 #include "simAVRHeader.h"
 #endif
 
-enum IN_States {IN_SMStart, IN_Wait, IN_Plus, IN_Minus, IN_Reset} IN_State;
-unsigned char tempC = 0x00;
-
+enum IN_States {IN_SMStart, IN_Init, IN_WaitIN_Plus, IN_Minus, IN_Reset} IN_State;
 
 void incrementC() {
+    unsigned char tempA0 = PINA & 0x01;
+    unsigned char tempA1 = PINA & 0x02;
+    
     switch(IN_State) {
       case IN_SMStart:
-        IN_State = IN_Wait;
+        IN_State = IN_Init;
         break;
-      case IN_Wait:
-        if(PINA == 0x01){
+      case IN_Init:
+        if(tempA0 && !tempA1){
           IN_State = IN_Plus;
         }
-        else if(PINA == 0x02) {
+        else if(!tempA0 && tempA1) {
           IN_State = IN_Minus;
         }
-        else if(PINA == 0x03) {
+        else if(tempA0 && tempA1) {
           IN_State = IN_Reset;
         }
         else {
           IN_State = IN_Wait;
         }
         break;
+        case IN_Wait:
+            if(tempA0 && tempA0) [
+                IN_State = IN_Reset;    
+            }
+            else if(!tempA0 && !tempA) {
+                 IN_State = IN_Init; //no chance of reset
+            }
+            else {
+                IN_State = IN_Wait;
+            }
+            break;
+                    
       case IN_Plus:
         IN_State = IN_Wait;
         break;
@@ -52,21 +65,30 @@ void incrementC() {
 
     switch(IN_State) {
       case IN_SMStart:
+        PORTC = 0x07;
         break;
+     case IN_Init:
+         break;
       case IN_Wait:
         break;
       case IN_Plus:
-        if(tempC < 9){
-          tempC++;
+        if(PORTC < 9){
+          PORTC++;
+        }
+        else {
+            PORTC = 0x09; //stop at 9
         }
         break;
       case IN_Minus:
-        if(tempC > 0) {
-          tempC--;
+        if(PORTC > 0) {
+          PORTC--;
+        }
+        else {
+            PORTC = 0x00; //stop at 0
         }
         break;
       case IN_Reset:
-        tempC = 0;
+        PORTC = 0x00;
         break;
       default:
         break;
@@ -79,11 +101,11 @@ int main(void) {
   DDRC = 0xFF; PORTC = 0x00;
 
 
-  tempC = 7;  
+ 
   while(1) {
    
     incrementC();
-    PORTC =  tempC;
+  
   }
 
 
