@@ -78,9 +78,9 @@ int main(void) {
   DDRC = 0xFF; PORTC = 0x00;
 
 
-    
+  tempC = 7;  
   while(1) {
-    tempC = 7;
+   
     incrementC();
     PORTC =  tempC;
   }
